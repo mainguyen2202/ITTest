@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotate Sparse Array</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      width: 600px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #output-array {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Rotate Sparse Array</h1>
+    <div class="form-group">
+      <label for="input-array-text">Input Array:</label>
+      <input type="text" id="input-array-text" value="[1, null, 2, null, 3]">
+    </div>
+    <div class="form-group">
+      <label for="steps-input">Steps:</label>
+      <input type="number" id="steps-input" value="2">
+    </div>
+    <button onclick="rotateSparseArray()">Rotate Array</button>
+   
+
+    <h1> Output Array</h1>
+    <div id="output-array">
+     Right Rotation<span id="output-array-text-right"></span>
+    </br> 
+       Left Rotation <span id="output-array-text-left"></span>
+    </div>
+  </div>
+
+  <script>
+    function rotateSparseArray() {
+      // Get the input array and number of steps from the DOM
+      const inputArrayText = document.getElementById('input-array-text').value;
+      const steps = parseInt(document.getElementById('steps-input').value);
+
+      // Parse the input array
+      const inputArray = JSON.parse(inputArrayText);
+
+      // Rotate the array
+
+      function rotateSparseArrayRight(arr, steps) {
+        const n = arr.length;
+        const result = new Array(n).fill(null);
+
+        for (let i = 0; i < n; i++) {
+          const newIndex = (i + steps) % n;
+          result[newIndex] = arr[i];
+        }
+
+        return result;
+      }
+      // Left Rotation 
+      function rotateSparseArrayLeft(arr, steps) {
+        const n = arr.length;
+        const result = new Array(n).fill(null);
+
+        for (let i = 0; i < n; i++) {
+          const newIndex = (i - steps + n) % n;
+          result[newIndex] = arr[i];
+        }
+
+        return result;
+      }
+
+      const rotatedArrayRight = rotateSparseArrayRight(inputArray, steps);
+      const rotatedArrayLeft = rotateSparseArrayLeft(inputArray, steps);
+
+      // Update the output array in the DOM
+      document.getElementById('output-array-text-right').textContent = JSON.stringify(rotatedArrayRight);
+      document.getElementById('output-array-text-left').textContent = JSON.stringify(rotatedArrayLeft);
+    }
+  </script>
+</body>
+
+</html>
