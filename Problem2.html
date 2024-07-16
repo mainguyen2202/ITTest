@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Palindrome Checker</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      margin: 0;
+      background-color: #f0f0f0;
+      
+    }
+
+    #container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    input {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 300px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .is-palindrome {
+      background-color: #e6ffed;
+      color: #2e7d32;
+    }
+
+    .not-palindrome {
+      background-color: #ffcdd2;
+      color: #c62828;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="container">
+    <h1>Palindrome Checker</h1>
+    <!-- racecar -->
+    <input type="text" id="input-text" placeholder="Enter a string" value="A man, a plan, a canal, Panam">
+    <button onclick="checkPalindrome()">Check Palindrome</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkPalindrome() {
+      const inputText = document.getElementById('input-text').value;
+      const result = document.getElementById('result');
+
+      if (isPalindrome(inputText)) {
+        result.textContent = "The string is a palindrome.";
+        result.className = "is-palindrome";
+      } else {
+        result.textContent = "The string is not a palindrome.";
+        result.className = "not-palindrome";
+      }
+    }
+
+    function isPalindrome(s) {
+      // Remove non-alphanumeric characters and convert to lowercase
+      const cleanedString = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+
+      // Compare characters from the beginning and end of the string
+      for (let i = 0; i < Math.floor(cleanedString.length / 2); i++) {
+        if (cleanedString[i] !== cleanedString[cleanedString.length - 1 - i]) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>
