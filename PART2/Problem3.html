@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Anagram Grouper</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+            width: 100%;
+
+            justify-content: space-between;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-area {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .input-area input {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 400px;
+            margin-right: 10px;
+        }
+
+        .input-area button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .output-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .anagram-group {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .anagram-group h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .anagram-group ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .anagram-group li {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Anagram Grouper</h1>
+        </div>
+        <div class="input-area">
+            <input type="text" id="input-field" placeholder="Enter a list of words (separated by commas)"
+                value="eat, tea, tan, ate, nat, bat">
+            <button id="group-button">Group Anagrams</button>
+        </div>
+        <h1>Anagram Group</h1>
+        <div id="output-container" class="output-area">
+        </div>
+    </div>
+
+    <script>
+        // Hàm mã hóa HTML để tránh tấn công XSS
+        function escapeHTML(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Hàm nhóm các từ đồng âm
+        function groupAnagrams(words) {
+            const anagramGroups = new Map();
+
+            words.forEach(word => {
+                const sortedWord = [...word].sort().join('');
+                if (!anagramGroups.has(sortedWord)) {
+                    anagramGroups.set(sortedWord, []);
+                }
+                anagramGroups.get(sortedWord).push(word);
+            });
+
+            return Array.from(anagramGroups.values());
+        }
+
+
+
+        // Hàm tách từ thành các chữ cái và tạo tên nhóm
+        function generateGroupName(group) {
+            if (group.length === 0) return 'Anagram Group';
+
+            // Sử dụng từ đầu tiên
+            const firstWord = group[0];
+
+            // Tách từ đầu tiên thành các chữ cái
+            const letters = [...firstWord].map(letter => letter.toUpperCase()).join(' ');
+
+            // Tạo tên nhóm từ các chữ cái
+            return `${letters} Group`;
+        }
+
+        // Template Literals:
+        // Hàm tạo HTML cho các nhóm từ đồng âm
+        //     function createAnagramGroupHTML(group) {
+        //         const wordCount = group.length;
+        //         const groupName = generateGroupName(group); // Tạo tên nhóm từ các từ trong nhóm
+
+        //         // Tạo danh sách các từ
+        //         const wordsList = group.map(word => `<li>${escapeHTML(word)}</li>`).join('');
+
+        //         // Tạo HTML cho nhóm từ
+        //         // Tạo mẫu HTML bằng Template Literals
+        //         return `
+        //     <div class="anagram-group">
+        //         <h3>${groupName}  (${wordCount} word${wordCount !== 1 ? 's' : ''})</h3>
+        //         <ul>${wordsList}</ul>
+        //     </div>
+        // `;
+        //     }
+
+        // DOM Manipulation
+        function createAnagramGroupHTML(group) {
+            const wordCount = group.length;
+            const groupName = generateGroupName(group);
+
+            // Tạo phần tử chứa nhóm từ đồng âm
+            const groupElement = document.createElement('div');
+            groupElement.className = 'anagram-group';
+
+            // Tạo tiêu đề cho nhóm từ
+            const heading = document.createElement('h3');
+            heading.textContent = `${groupName} (${wordCount} word${wordCount !== 1 ? 's' : ''})`;
+            groupElement.appendChild(heading);
+
+            // Tạo danh sách các từ
+            const ul = document.createElement('ul');
+            group.forEach(word => {
+                const li = document.createElement('li');
+                li.innerHTML = escapeHTML(word);
+                ul.appendChild(li);
+            });
+            groupElement.appendChild(ul);
+
+            return groupElement;
+        }
+
+
+        // Xử lý sự kiện khi người dùng nhấp vào nút
+        document.getElementById('group-button').addEventListener('click', () => {
+            const inputField = document.getElementById('input-field');
+            const words = inputField.value.split(',').map(word => word.trim().toLowerCase());
+
+            const anagramGroups = groupAnagrams(words);
+            const outputContainer = document.getElementById('output-container');
+
+            // Tạo HTML cho tất cả các nhóm và cập nhật giao diện
+            // outputContainer.innerHTML = anagramGroups.map(createAnagramGroupHTML).join('');
+
+            outputContainer.innerHTML = '';
+
+            // Thêm từng nhóm từ vào container
+            anagramGroups.forEach(group => {
+                const groupElement = createAnagramGroupHTML(group);
+                outputContainer.appendChild(groupElement);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
