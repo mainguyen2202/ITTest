@@ -97,13 +97,11 @@
       <input type="number" id="steps-input" value="2">
     </div>
     <button onclick="rotateSparseArray()">Rotate Array</button>
-   
 
-    <h1> Output Array</h1>
+    <h2>Output Array</h2>
     <div id="output-array">
-     Right Rotation<span id="output-array-text-right"></span>
-    </br> 
-       Left Rotation <span id="output-array-text-left"></span>
+      <p>Right Rotation: <span id="output-array-text-right"></span></p>
+      <p>Left Rotation: <span id="output-array-text-left"></span></p>
     </div>
   </div>
 
@@ -117,37 +115,36 @@
       const inputArray = JSON.parse(inputArrayText);
 
       // Rotate the array
-
-      function rotateSparseArrayRight(arr, steps) {
-        const n = arr.length;
-        const result = new Array(n).fill(null);
-
-        for (let i = 0; i < n; i++) {
-          const newIndex = (i + steps) % n;
-          result[newIndex] = arr[i];
-        }
-
-        return result;
-      }
-      // Left Rotation 
-      function rotateSparseArrayLeft(arr, steps) {
-        const n = arr.length;
-        const result = new Array(n).fill(null);
-
-        for (let i = 0; i < n; i++) {
-          const newIndex = (i - steps + n) % n;
-          result[newIndex] = arr[i];
-        }
-
-        return result;
-      }
-
       const rotatedArrayRight = rotateSparseArrayRight(inputArray, steps);
       const rotatedArrayLeft = rotateSparseArrayLeft(inputArray, steps);
 
       // Update the output array in the DOM
       document.getElementById('output-array-text-right').textContent = JSON.stringify(rotatedArrayRight);
       document.getElementById('output-array-text-left').textContent = JSON.stringify(rotatedArrayLeft);
+    }
+
+    function rotateSparseArrayRight(arr, steps) {
+      const n = arr.length;
+      const result = new Array(n).fill(null);
+
+      for (let i = 0; i < n; i++) {
+        const newIndex = (i + steps) % n;
+        result[newIndex] = arr[i];
+      }
+
+      return result;
+    }
+
+    function rotateSparseArrayLeft(arr, steps) {
+      const n = arr.length;
+      const result = new Array(n).fill(null);
+
+      for (let i = 0; i < n; i++) {
+        const newIndex = (i - steps + n) % n;
+        result[newIndex] = arr[i];
+      }
+
+      return result;
     }
   </script>
 </body>
