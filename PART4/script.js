@@ -1,11 +1,12 @@
 // weatherApp.js
 
 // API config
-const API_URL = 'https://api.example.com/weather';
+require('dotenv').config();
+const API_URL = process.env.API_URL;
 // const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY'; // Thay thế bằng API key của bạn
 
 // Helper function to fetch weather data
-const getWeatherData = async (city) => {
+async function getWeatherData(city) {
   try {
     const response = await fetch(`${API_URL}?city=${city}`);
     // const response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=metric`);
@@ -18,9 +19,10 @@ const getWeatherData = async (city) => {
     console.error('Error fetching weather data:', error);
     throw error;
   }
-};
+}
+
 // Function to display weather information
-const displayWeatherInfo = (weatherData, weatherInfoElement) => {
+function displayWeatherInfo(weatherData, weatherInfoElement) {
   const { name, weather, main } = weatherData;
   const weatherDescription = weather[0].description;
   const temperature = main.temp;
@@ -33,14 +35,13 @@ const displayWeatherInfo = (weatherData, weatherInfoElement) => {
     <p>Humidity: ${humidity}%</p>
   `;
   weatherInfoElement.innerHTML = weatherHtml;
-};
-
+}
 
 // Weather component
 const cityInput = document.getElementById('city-input');
 const weatherInfo = document.getElementById('weather-info');
 
-const fetchWeather = async () => {
+async function fetchWeather() {
   const city = cityInput.value;
   if (!city) {
     weatherInfo.innerHTML = 'Please enter a city name.';
@@ -51,9 +52,9 @@ const fetchWeather = async () => {
     const weatherData = await getWeatherData(city);
     displayWeatherInfo(weatherData, weatherInfo);
   } catch (error) {
-    weatherInfo.innerHTML = 'Error: Unable to fetch weather data.';
+    weatherInfo.innerHTML = `Error: ${error.message}`;
   }
-};
+}
 
 // Event listener
 document.getElementById('fetch-weather').addEventListener('click', fetchWeather);

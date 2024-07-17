@@ -100,7 +100,7 @@
       let output = "";
 
       for (let i = 1; i <= 100; i++) {
-        if (i % (x * y) === 0) {
+        if (i % x === 0 && i % y === 0) {
           output += "FooBar\n";
         } else if (i % x === 0) {
           output += "Foo\n";

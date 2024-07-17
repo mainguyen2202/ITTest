@@ -133,19 +133,27 @@
 
         // Hàm nhóm các từ đồng âm
         function groupAnagrams(words) {
+            // Tạo một Map để lưu các nhóm anagram
             const anagramGroups = new Map();
 
+            // Duyệt qua từng từ trong mảng 'words'
             words.forEach(word => {
+                // Sắp xếp các ký tự trong từ theo thứ tự bảng chữ cái
                 const sortedWord = [...word].sort().join('');
+
+                // Kiểm tra nếu nhóm anagram này chưa được tạo
                 if (!anagramGroups.has(sortedWord)) {
+                    // Nếu chưa, tạo một mảng mới để lưu các từ trong nhóm
                     anagramGroups.set(sortedWord, []);
                 }
+
+                // Thêm từ hiện tại vào nhóm anagram tương ứng
                 anagramGroups.get(sortedWord).push(word);
             });
 
+            // Trả về các giá trị (mảng) của Map
             return Array.from(anagramGroups.values());
         }
-
 
 
         // Hàm tách từ thành các chữ cái và tạo tên nhóm
