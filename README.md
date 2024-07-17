@@ -68,15 +68,9 @@ Trong hàm handleFormSubmit():
 # PART4
 # Problem6
 ``` 
-Đầu tiên, đoạn code này định nghĩa một biến API_URL chứa đường dẫn API để lấy dữ liệu thời tiết từ một trang web thời tiết nào đó.
-
-Tiếp theo, nó định nghĩa một hàm getWeatherData sử dụng giao thức fetch để gọi API và lấy dữ liệu thời tiết cho một thành phố cụ thể. Nếu có bất kỳ lỗi nào xảy ra trong quá trình này, hàm sẽ ném ra một lỗi.
-
-Hàm displayWeatherInfo được sử dụng để hiển thị thông tin thời tiết trên giao diện người dùng. Nó nhận vào dữ liệu thời tiết và một phần tử HTML để hiển thị thông tin.
-
-Tiếp theo, đoạn code tạo ra hai phần tử HTML: một input để nhập tên thành phố và một phần tử để hiển thị thông tin thời tiết.
-
-Hàm fetchWeather được định nghĩa để xử lý việc tìm kiếm thời tiết khi người dùng nhập tên thành phố và nhấn nút "Lấy thời tiết". Nó gọi hàm getWeatherData để lấy dữ liệu thời tiết và sau đó sử dụng hàm displayWeatherInfo để hiển thị thông tin trên giao diện.
-
-Cuối cùng, một sự kiện click được thêm vào nút "Lấy thời tiết" để kích hoạt hàm fetchWeather khi người dùng nhấn vào.
+Đầu tiên, đoạn mã này sử dụng thư viện dotenv để đọc các biến môi trường từ một tệp .env. Biến môi trường API_URL được sử dụng để lưu trữ URL của API thời tiết.
+Tiếp theo, có một hàm getWeatherData() được định nghĩa để fetch dữ liệu thời tiết từ API. Hàm này sử dụng fetch() để gửi yêu cầu HTTP đến API và trả về dữ liệu JSON khi có phản hồi thành công. Nếu có lỗi xảy ra, hàm sẽ ném ra một ngoại lệ.
+Hàm displayWeatherInfo() được sử dụng để hiển thị thông tin thời tiết. Hàm này nhận dữ liệu thời tiết và một phần tử HTML để hiển thị thông tin. Nó tạo một chuỗi HTML với các thông tin như tên thành phố, mô tả thời tiết, nhiệt độ và độ ẩm, sau đó gán chuỗi này vào innerHTML của phần tử HTML.
+Hàm fetchWeather() được sử dụng để xử lý sự kiện khi người dùng nhấp vào nút "Fetch Weather". Hàm này đầu tiên lấy giá trị từ trường nhập liệu, sau đó gọi hàm getWeatherData() để lấy dữ liệu thời tiết. Nếu có lỗi xảy ra, hàm sẽ hiển thị thông báo lỗi trong phần tử HTML hiển thị thông tin thời tiết.
+Cuối cùng, một sự kiện click được gắn vào nút "Fetch Weather" để gọi hàm fetchWeather() khi người dùng nhấp vào nút.
 ```

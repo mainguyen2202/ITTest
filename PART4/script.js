@@ -1,15 +1,14 @@
-// weatherApp.js
+import { API_URL } from './config.js';
 
 // API config
-require('dotenv').config();
-const API_URL = process.env.API_URL;
-// const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY'; // Thay thế bằng API key của bạn
+// require('dotenv').config();
+// const API_URL = process.env.API_URL;
+
 
 // Helper function to fetch weather data
 async function getWeatherData(city) {
   try {
     const response = await fetch(`${API_URL}?city=${city}`);
-    // const response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=metric`);
     if (!response.ok) {
       throw new Error(`Error fetching weather data: ${response.status}`);
     }
