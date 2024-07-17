@@ -66,6 +66,7 @@ Trong hàm handleFormSubmit():
     updateBackgroundColor(): cập nhật màu nền của trang.
 ```
 # PART4
+# Problem6
 ``` 
 Đầu tiên, đoạn code này định nghĩa một biến API_URL chứa đường dẫn API để lấy dữ liệu thời tiết từ một trang web thời tiết nào đó.
 
