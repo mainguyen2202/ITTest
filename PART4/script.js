@@ -1,9 +1,10 @@
-import { API_URL } from './config.js';
 
 // API config
+// import { API_URL } from './config.js';
 // require('dotenv').config();
 // const API_URL = process.env.API_URL;
 
+const API_URL = 'https://api.example.com/weather';
 
 // Helper function to fetch weather data
 async function getWeatherData(city) {

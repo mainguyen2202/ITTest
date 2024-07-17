@@ -68,7 +68,7 @@ Trong hàm handleFormSubmit():
 # PART4
 # Problem6
 ``` 
-Đầu tiên, đoạn mã này sử dụng thư viện dotenv để đọc các biến môi trường từ một tệp .env. Biến môi trường API_URL được sử dụng để lưu trữ URL của API thời tiết.
+Đầu tiên, đoạn code này định nghĩa một biến API_URL chứa đường dẫn API để lấy dữ liệu thời tiết từ một trang web thời tiết.
 Tiếp theo, có một hàm getWeatherData() được định nghĩa để fetch dữ liệu thời tiết từ API. Hàm này sử dụng fetch() để gửi yêu cầu HTTP đến API và trả về dữ liệu JSON khi có phản hồi thành công. Nếu có lỗi xảy ra, hàm sẽ ném ra một ngoại lệ.
 Hàm displayWeatherInfo() được sử dụng để hiển thị thông tin thời tiết. Hàm này nhận dữ liệu thời tiết và một phần tử HTML để hiển thị thông tin. Nó tạo một chuỗi HTML với các thông tin như tên thành phố, mô tả thời tiết, nhiệt độ và độ ẩm, sau đó gán chuỗi này vào innerHTML của phần tử HTML.
 Hàm fetchWeather() được sử dụng để xử lý sự kiện khi người dùng nhấp vào nút "Fetch Weather". Hàm này đầu tiên lấy giá trị từ trường nhập liệu, sau đó gọi hàm getWeatherData() để lấy dữ liệu thời tiết. Nếu có lỗi xảy ra, hàm sẽ hiển thị thông báo lỗi trong phần tử HTML hiển thị thông tin thời tiết.
